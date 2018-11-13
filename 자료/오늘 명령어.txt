@@ -1,0 +1,46 @@
+  206  git add *
+  207  git commit -m 'init'
+  208  git push
+  209  cd server_side_javascript/
+  210  git add *
+  211  git commit -m 'test'
+  212  git push
+  213  git submodule add https://github.com/lee03311/study.git server_side_javascript
+  214   git rm --cached server_side_javascript
+  215  git rm -rf --cached server_side_javascript
+  216  git commit -m 'delete folder'
+  217  git status
+  218  git add *
+  219  git submodule add https://github.com/lee03311/study.git server_side_javascript
+  220  git ls-files --stage server_side_javascript/
+  221  git rm --cached server_side_javascript/
+  222  git rm --cached server_side_javascript
+  223  git rm -f --cached server_side_javascript
+  224  git ls-files --stage server_side_javascript/
+  225  git submodule add https://github.com/lee03311/study.git server_side_javascript
+  226  git commit -m 'add folder'
+  227  git push
+  228  git add server_side_javascript/
+  229  git commit -m 'add folder'
+  230  git push
+  231  git rm -f --cached server_side_javascript
+  232  git ls-files --stage server_side_javascript/
+  233  git commit -m 'delete folder'
+  234  git push
+  235  git add server_side_javascript/
+  236  git commit -m 'test'
+  237  git push
+  238  cd 자료/
+  239  git status
+  240  git status
+  241  cd ../
+  242  git status
+  243  git ls-files --stage 자료
+  244  git status
+  245  cd 자료/
+  246  git status
+  247  git add *
+  248  git status
+  249  git commit -m 'test'
+  250  git push
+  251  history
