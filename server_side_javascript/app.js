@@ -1,8 +1,29 @@
 var express = require('express'); //모듈 로드
 var app = express(); //함수
 
+//public 폴더에 접근할수 있음
+app.use(express.static('public'));
+
 app.get('/', function(req, res){
     res.send('Hello World!');
+});
+
+app.get('/dynamic', function(req,res){
+    var text = `<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        dynamic
+    </body>
+    </html>`;
+
+    res.send(text);
+});
+
+app.get('/router', function(req, res){
+    res.send('<img src="/common.jpeg"/>');
 });
 
 app.get('/login', function(req, res){
