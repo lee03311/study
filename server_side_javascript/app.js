@@ -1,6 +1,10 @@
 var express = require('express'); //모듈 로드
 var app = express(); //함수
 
+app.locals.pretty = true;
+app.set('views', './views'); //폴더명
+app.set('view engine', 'pug'); //views 폴더에서 pug 확장자 파일을 찾아 결과를 뿌림
+
 //public 폴더에 접근할수 있음
 app.use(express.static('public'));
 
@@ -8,6 +12,9 @@ app.get('/', function(req, res){
     res.send('Hello World!');
 });
 
+app.get('/template', function(req,res){
+    res.render('index.pug',{time:Date()});
+})
 app.get('/dynamic', function(req,res){
     var text = `<!DOCTYPE html>
     <head>
