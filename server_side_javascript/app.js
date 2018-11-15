@@ -8,7 +8,7 @@ app.set('view engine', 'pug'); //views 폴더에서 pug 확장자 파일을 찾�
 //public 폴더에 접근할수 있음
 app.use(express.static('public'));
 
-app.get('/topic', function(req, res){
+app.get('/topic/:id', function(req, res){
     // res.send(req.query.id+', '+req.query.name);
     var topics = [
         'Javascript is...',
@@ -20,11 +20,18 @@ app.get('/topic', function(req, res){
         <a href="/topic?id=1">Nodejs</a><br/>
         <a href="/topic?id=2">Express</a><br/><br/>
 
-        ${topics[req.query.id]}
+        ${topics[req.params.id]}
     `;
+    
 
+    // ${topics[req.query.id]}
     res.send(output);
 });
+
+app.get('/topic/:id/:mode', function(req, res){
+    res.send(req.params.id + req.params.mode);
+})
+
 
 app.get('/', function(req, res){
     res.send('Hello World!');
