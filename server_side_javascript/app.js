@@ -1,4 +1,5 @@
 var express = require('express'); //모듈 로드
+var bodyParser = require('body-parser');
 var app = express(); //함수
 
 app.locals.pretty = true;
@@ -7,6 +8,18 @@ app.set('view engine', 'pug'); //views 폴더에서 pug 확장자 파일을 찾�
 
 //public 폴더에 접근할수 있음
 app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({extended:false}));
+
+app.get('/form', function(req,res){
+    res.render('form');
+});
+
+app.post('/form_reciever', function(req,res){
+    var title = req.body.title;
+    var desc = req.body.description;
+    res.send(title+','+desc);
+});
 
 app.get('/topic', function(req, res){
     // res.send(req.query.id+', '+req.query.name);
