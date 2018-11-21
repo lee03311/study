@@ -11,14 +11,13 @@ app.set('view engine', 'pug');
 
 /*db연결*/
 var server = OrientDB({
-    host:'localhost',
-    port:2424,
+    host:'192.168.0.3',
+    port:'2424',
     username:'root',
     password:'150523'
 });
 
 var db = server.use('o2');
-
 app.get('/topic/add', function(req, res){
     var sql = 'SELECT FROM topic ' ;
     db.query(sql).then(function(topics){
@@ -38,8 +37,72 @@ app.get('/topic/add', function(req, res){
     */
 });
 
-/*app.get('/topic/:name', function(req, res){
-    var id = req.params.name;
+app.get('/topic/:id/edit', function(req, res){
+    var sql = 'SELECT FROM topic ' ;
+    db.query(sql).then(function(topics){
+        var id = req.params.id;
+        if(id){
+            sql += 'WHERE @rid=:rid';
+            db.query(sql, {params:{rid:id}}).then(function(topic){
+                res.render('edit', {topics:topics, topic:topic[0]});
+            });
+        }
+    });
+    /*fs.readdir('data',function(err, files){
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+    res.render('add',{topics:files});
+    });
+    */
+});
+
+app.post('/topic/:id/edit', function(req, res){
+    var sql = 'UPDATE topic SET title=:t, description=:d, author=:a WHERE @rid=:rid' ;
+    var _params ={
+        params:{
+            t:req.body.title,
+            d:req.body.description,
+            a:req.body.author,
+            rid:req.params.id
+        }
+    };
+
+    db.query(sql, _params).then(function(topics){
+        res.redirect('/topic/'+encodeURIComponent(topics[0]['@rid']));
+    });
+});
+
+app.get('/topic/:id/delete', function(req, res){
+    var sql = 'SELECT FROM topic ' ;
+    db.query(sql).then(function(topics){
+        var id = req.params.id;
+        if(id){
+            sql += 'WHERE @rid=:rid';
+            db.query(sql, {params:{rid:id}}).then(function(topic){
+                res.render('delete', {topics:topics, topic:topic[0]});
+            });
+        }
+    });
+});
+
+
+app.post('/topic/:id/delete', function(req, res){
+    var sql = 'DELETE FROM topic WHERE @rid=:rid' ;
+    var _params ={
+        params:{
+            rid:req.params.id
+        }
+    };
+
+    db.query(sql, _params).then(function(topics){
+        res.redirect('/topic');
+    });
+});
+
+/*app.get('/topic/:id', function(req, res){
+    var id = req.params.id;
     fs.readdir('data',function(err, files){
         if(err){
             console.log(err);
@@ -102,8 +165,6 @@ app.post('/topic', function(req, res){
     };
 
     db.query(sql, _params).then(function(topics){
-        console.log(topics);
-        
         res.redirect('/topic/'+encodeURIComponent(topics[0]['@rid']));
     });
     /*fs.writeFile('data/'+title, description, function(err){
