@@ -8,16 +8,17 @@ html
         ul
             each topic1 in topics
                 li  
-                    - rid = encodeURIComponent(topic1['@rid'])
+                    - rid = encodeURIComponent(topic1['id'])
                     a(href='/topic/'+rid)=topic1.title
         article
-            h1= 'Delete? '+topic.title
-            - rid = encodeURIComponent(topic['@rid'])
+            | DELETE
+            h1= 'Delete? '+topic[0].title
+            - rid = encodeURIComponent(topic[0]['id'])
             form(action='/topic/'+rid+'/delete' method='post')
-                p=topic.title
-                p=topic.description
-                if topic.author
-                    div='by '+topic.author
+                p=topic[0].title
+                p=topic[0].description
+                if topic[0].author
+                    div='by '+topic[0].author
                 p
                     input(type='submit' value='Yes')
                 a(href='/topic/'+rid) No

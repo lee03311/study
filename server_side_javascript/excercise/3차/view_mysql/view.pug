@@ -21,9 +21,9 @@ html
                 | This is server side javascript tutorial.
         ul
             li
-                a(href='/topic/add') new
+                a(href='/topic/add') add
             if topic
-                - rid = encodeURIComponent(topic['@rid'])
+                - rid = encodeURIComponent(topic['id'])
                 li
                     a(href='/topic/'+rid+'/edit') edit
                 li

@@ -19,13 +19,13 @@ app.locals.pretty=true;
 app.set('views','./view_mysql');//express 설정, view file 위치
 app.set('view engine', 'pug');
 
-app.get('/topic/new', function(req, res){
-    fs.readdir('data',function(err, files){
+app.get('/topic/add', function(req, res){
+    con.query('SELECT * FROM topic', function(err, topics, fields){
         if(err){
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-    res.render('form',{topics:files});
+        res.render('add',{topics:topics});
     });
 });
 
@@ -47,49 +47,122 @@ app.get(['/topic','/topic/:id'], function(req, res){
                     }
                 });
             }else{
-                var topic = {
+                /*var topic = {
                     title:'Welcome', 
                     description:'Hello, Javascript server..'
-                }
-                res.render('view', {topics:topics, topic:topic});
+                }*/
+                res.render('view', {topics:topics});
             }
         }
         
     });
+});
 
+app.get('/topic/:id/edit', function(req, res){
+    var id = req.params.id;
 
-
-
-    /*fs.readdir('data',function(err, files){
+    con.query('SELECT * FROM topic', function(err, topics, field){
         if(err){
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        var id = req.params.id;
+
         if(id){
-            fs.readFile('data/'+id, 'utf8', (err, data) => {
+            con.query('SELECT * FROM topic WHERE id=?',[id], function(err, topic, field){
                 if(err){
                     console.log(err);
                     res.status(500).send('Internal Server Error');
                 }
-                res.render('view', {topics:files, title:id, description:data});
+
+                res.render('edit', {topics: topics, topic: topic});
             });
         }else{
-            res.render('view', {topics:files, title:'Welcome', description:'Hello, Javascript server..'});
+            console.log('There is no id.');
+            res.status(500).send('Internal Server Error');
         }
-    });*/
+    });
 });
 
-app.post('/topic', function(req, res){
-    var title = req.body.title;
-    var description = req.body.description;
+app.get('/topic/:id/delete', function(req, res){
+    var id = req.params.id;
 
-    fs.writeFile('data/'+title, description, function(err){
+    con.query('SELECT * FROM topic', function(err, topics, field){
         if(err){
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        res.redirect('/topic/'+title);
+
+        if(id){
+            con.query('SELECT * FROM topic WHERE id=?',[id], function(err, topic, field){
+                if(err){
+                    console.log(err);
+                    res.status(500).send('Internal Server Error');
+                }
+
+                res.render('delete', {topics: topics, topic: topic});
+            });
+        }else{
+            console.log('There is no id.');
+            res.status(500).send('Internal Server Error');
+        }
+    });
+});
+
+app.post('/topic/:id/edit', function(req, res){
+    var id = req.params.id;
+    var title = req.body.title;
+    var description = req.body.description;
+    var author = req.body.author;
+
+    var sql = 'UPDATE topic SET title=?, description=?, author=? WHERE id =?';
+
+    console.log(id);
+    if(id){
+        con.query(sql,[title,description,author,id], function(err, topic, fields){
+            if(err){
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+            }
+            res.redirect('/topic/'+id)
+        });
+    }else{
+        console.log('There is no id.');
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.post('/topic/:id/delete', function(req, res){
+    var id = req.params.id;
+    if(id){
+        var sql = "DELETE FROM topic WHERE id = ?";
+        con.query(sql, [id], function(err, topic, fields){
+            if(err){
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+            }
+            res.redirect('/topic');
+        });
+    }else{
+        console.log('There is no id.');
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+app.post('/topic/add', function(req, res){
+    var title = req.body.title;
+    var description = req.body.description;
+    var author = req.body.author;
+
+    var sql = 'INSERT INTO topic(title,description,author) VALUES (?,?,?)';
+    var _params = [title,description,author];
+    con.query(sql,_params,function(err,topic,fields){
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+        console.log(topic);
+        res.redirect('/topic/'+topic.insertId);
     });
 })
 

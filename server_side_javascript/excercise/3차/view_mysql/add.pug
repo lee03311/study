@@ -11,7 +11,7 @@ html
                     - rid = encodeURIComponent(topic['@rid'])
                     a(href='/topic/'+rid)=topic.title
         article
-            form(action='/topic' method='post')
+            form(action='/topic/add' method='post')
                 p
                     input(type='text' name='title' placeholder='title')
                 p
