@@ -18,6 +18,7 @@
 * git add
 ```
 변경된 파일을 storage에 추가
+commit 전에 add한 항목을 취소하려면 git reset HEAD <파일명>
 ```
 * git commit
 ```
@@ -56,16 +57,19 @@ local repository를 remote repository에 업로드
 원격저장소에서 수정된 파일이 있을 때 내려받기 위해 사용하는 명령어
 ```
 
+
+
+
+
+---------- 아직작성중
 ## merge
 ## diff
 ## remove
 
 
 ## 에러 메시지
-refusing to merge unrelated histories
- git pull 에러
- 	
-git pull origin 브런치명 --allow-unrelated-histories
+* HISTORY 보기	
+> git pull origin 브런치명 --allow-unrelated-histories
 
-
-git push --force 강제로 밀어넣기
+* push 강제로 하기
+> git push --force

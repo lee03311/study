@@ -1,0 +1,30 @@
+ul{
+    height:500px;
+}
+
+li{
+    list-style: none;
+}
+
+li.list{
+    margin: 20px 0;
+    width: 300px;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.circle{
+    width: 70px;
+    height: 70px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 10px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    padding-top:20px;
+}

@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        meta(charset = 'utf-8')
+        script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+        style
+            include ../css/style.css
+    body
+        //- h1 별이달이 일지
+        ul
+            - for(var i=0; i<20; i++)
+                li(class='list') 
+                    div(class="circle") 11/27
+                    span test
