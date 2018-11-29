@@ -1,23 +1,30 @@
 ul{
-    height:500px;
+    overflow: auto;
+    margin:auto;
+    text-align: center;
+    padding:0;
 }
 
 li{
     list-style: none;
+    text-align: left;
 }
 
 li.list{
-    margin: 20px 0;
+    margin: 10px;
     width: 300px;
     border: 1px solid;
     border-radius: 10px;
     padding: 20px;
+    display: inline-block;
+    box-shadow: 2px 3px 2px #aaaaaa;
+    background-color:rgba(145, 175, 89);;
 }
 
 .circle{
     width: 70px;
     height: 70px;
-    background-color: red;
+    background-color:rgb(255, 101, 58);
     border-radius: 50%;
     display: inline-block;
     vertical-align: middle;
@@ -27,4 +34,9 @@ li.list{
     color: white;
     font-weight: bold;
     padding-top:20px;
+    box-shadow: 1px 1px 10px #aaa;
+}
+
+.wrapper{
+
 }
