@@ -24,7 +24,11 @@ html
             });
 
             function reportAdd(){
-                alert('test')
+                $("#reportForm").submit();
+            }
+
+            function reportDelete(){
+                $("#reportForm").attr('action', '/delete')
                 $("#reportForm").submit();
             }
     body
@@ -42,7 +46,7 @@ html
                             span(class='glyphicon glyphicon-menu-right' aria-hidden='true')
 
 
-            button(type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal") 등록
+            button(type="button" class="btn btn-default"  onclick='openDialogForAdd()' /*data-toggle="modal" data-target="#myModal"*/) 등록
         ul(id='dataArea')
             //- each data in rows
             //-     li(class='list') 
@@ -59,21 +63,21 @@ html
                             span(aria-hidden='true') &times;
                         h4(class='modal-title', id='myModalLabel') 일정 등록하기
                     div(class='modal-body')
-                        form(action="/add", method="post" id='reportForm')
-                            input(type='hidden' id='id')
+                        form(method="post" id='reportForm' action='/add')
+                            input(type='hidden' id='id' name='id')
                             div(class='input-group')
-                                input(type='text' class='form-control' id='datepicker' name='date' placeholder='날짜선택' aria-describedby='basic-addon2')
+                                input(type='text' class='form-control' id='datepicker' name='date' placeholder='날짜선택' aria-describedby='basic-addon2' autocomplete="off")
                                 span(class='input-group-addon ' id='basic-addon2')
                                     span(class='glyphicon glyphicon-calendar' aria-hidden='true')
                                     
                             div(class='form-group')
-                                input(type='text' class='form-control' id='title' name='title' placeholder='제목')
+                                input(type='text' class='form-control' id='title' name='title' placeholder='제목' autocomplete="off")
 
                             div(class='form-group')
-                                input(type='text' class='form-control' id='contents' name='contents' placeholder='내용')
+                                input(type='text' class='form-control' id='contents' name='contents' placeholder='내용' autocomplete="off")
 
                     div(class='modal-footer')
                         button(ype="button" class="btn btn-default" data-dismiss="modal") 닫기
-                        button(type="button" class="btn btn-primary addbtn" onclick='javascript:reportAdd()' ) 저장
-                        button(type='button' class="btn btn-primary updatebtn" onclick='javascript:reportUpdate()' ) 수정
+                        button(type="button" class="btn btn-primary" onclick='javascript:reportAdd()' ) 저장
+                        button(type="button" class="btn btn-danger deletebtn" onclick='javascript:reportDelete()' ) 삭제
 

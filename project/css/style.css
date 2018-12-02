@@ -49,6 +49,11 @@ li.list:hover{
     height: 50%;
 }
 
+.textTitle{
+    font-size: 15px;
+    font-weight: bold;
+}
+
 .btnArea{
     width: 85%;
     text-align: right;

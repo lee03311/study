@@ -62,6 +62,8 @@ function getList(year, month){
                         $("<li/>").attr('id', rows[i].id).addClass('list').attr('onclick','showInfo("'+rows[i].id+'")').append(
                             $('<div/>').addClass('circle').text(rows[i].date)
                         ).append(
+                            $('<span/>').text(rows[i].title).addClass('textTitle')
+                        ).append(
                             $('<div/>').addClass('textBox').append(
                                 $('<span/>').text(rows[i].contents)
                             )
@@ -83,16 +85,26 @@ function showInfo(id){
         data: {id:id},
         success: function(data) {
             if(data.result == 'success'){
+                $('#id').val(data.data.id);
                 $('input[name=date]').val(data.data.date);
                 $('#title').val(data.data.title);
                 $('#contents').val(data.data.contents);
 
-                $('.addbtn').hide();
-                $('.updatebtn').show();
+                $('.deletebtn').show();
                 $('#myModal').modal('show');
             }
        },error:function(){
            alert('getList 오류!!!')
        }
     });
+}
+
+function openDialogForAdd(){
+    $('#id').val('');
+    $('input[name=date]').val('');
+    $('#title').val('');
+    $('#contents').val('');
+
+    $('.deletebtn').hide();
+    $('#myModal').modal('show');
 }

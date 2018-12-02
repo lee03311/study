@@ -76,6 +76,14 @@ app.post('/add', function(req, res){
    res.redirect('/');
 });
 
+app.post('/delete', function(req, res){
+    var data = req.body;
+    console.log(data);
+ 
+    firebase.database().ref('data/' + data.id).remove();
+    res.redirect('/');
+});
+
 app.listen(3003, function(){
     console.log('Connected 3000 port!');
 });
