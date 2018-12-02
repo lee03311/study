@@ -12,13 +12,19 @@ li{
 
 li.list{
     margin: 10px;
-    width: 300px;
+    width: 250px;
+    height:200px;
     border: 1px solid;
     border-radius: 10px;
     padding: 20px;
     display: inline-block;
     box-shadow: 2px 3px 2px #aaaaaa;
-    background-color:rgba(145, 175, 89);;
+    cursor: pointer;
+    /*background-color:rgba(145, 175, 89);;*/
+}
+
+li.list:hover{
+    background-color:antiquewhite;;
 }
 
 .circle{
@@ -26,9 +32,9 @@ li.list{
     height: 70px;
     background-color:rgb(255, 101, 58);
     border-radius: 50%;
-    display: inline-block;
+    /*display: inline-block;*/
     vertical-align: middle;
-    margin: 0 10px;
+    margin: 0 auto 10px;
     text-align: center;
     font-size: 20px;
     color: white;
@@ -37,6 +43,22 @@ li.list{
     box-shadow: 1px 1px 10px #aaa;
 }
 
-.wrapper{
+.textBox{
+    word-break: break-all;
+    overflow: scroll;
+    height: 50%;
+}
 
+.btnArea{
+    width: 85%;
+    text-align: right;
+    margin:20px auto;
+}
+
+.ui-datepicker{
+    z-index: 10000 !important;
+}
+
+.input-group{
+    margin-bottom: 15px;
 }

@@ -4,13 +4,76 @@ html
         meta(charset = 'utf-8')
         script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+        script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+        link(rel='stylesheet' href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
         style
             include ../css/style.css
+        script(type='text/javascript' src='/common.js') 
+        script.
+            $(function(){
+                getDays();
+                
+                $('.updatebtn').hide();
+
+                $( "#datepicker" ).datepicker({
+                    showOtherMonths: true,
+                    selectOtherMonths: true, 
+                    dateFormat:'yy/mm/dd'
+                });
+            });
+
+            function reportAdd(){
+                alert('test')
+                $("#reportForm").submit();
+            }
     body
         //- h1 별이달이 일지
-        ul
-            - for(var i=0; i<20; i++)
-                li(class='list') 
-                    div(class="circle") 11/27
-                    span test
+        div(class='btnArea')
+            nav
+                ul(class='pager')
+                    li
+                        a(href='#' onclick="javascript:moveDays('pre');")
+                            span(class='glyphicon glyphicon-menu-left' aria-hidden='true')
+                    li
+                        span(id='thisMonth')
+                    li
+                        a(href='#' onclick="javascript:moveDays('next');")
+                            span(class='glyphicon glyphicon-menu-right' aria-hidden='true')
+
+
+            button(type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal") 등록
+        ul(id='dataArea')
+            //- each data in rows
+            //-     li(class='list') 
+                    
+            //-             div(class="circle")= data.date
+            //-             span= data.contents
+
+        
+        div(class='modal fade' id='myModal' tabindex='-1' role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+            div(class='modal-dialog')
+                div(class='modal-content')
+                    div(class='modal-header')
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden='true') &times;
+                        h4(class='modal-title', id='myModalLabel') 일정 등록하기
+                    div(class='modal-body')
+                        form(action="/add", method="post" id='reportForm')
+                            input(type='hidden' id='id')
+                            div(class='input-group')
+                                input(type='text' class='form-control' id='datepicker' name='date' placeholder='날짜선택' aria-describedby='basic-addon2')
+                                span(class='input-group-addon ' id='basic-addon2')
+                                    span(class='glyphicon glyphicon-calendar' aria-hidden='true')
+                                    
+                            div(class='form-group')
+                                input(type='text' class='form-control' id='title' name='title' placeholder='제목')
+
+                            div(class='form-group')
+                                input(type='text' class='form-control' id='contents' name='contents' placeholder='내용')
+
+                    div(class='modal-footer')
+                        button(ype="button" class="btn btn-default" data-dismiss="modal") 닫기
+                        button(type="button" class="btn btn-primary addbtn" onclick='javascript:reportAdd()' ) 저장
+                        button(type='button' class="btn btn-primary updatebtn" onclick='javascript:reportUpdate()' ) 수정
+
