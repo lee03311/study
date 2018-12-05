@@ -2,16 +2,18 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var app = express();
 
-app.use(cookieParser());
-app.get('/count', function(req, res){
-    var count = req.cookies.count;
+app.use(cookieParser('234234@#$234234@#$'));
 
-    if(count){
-        count++;
+app.get('/count', function(req, res){
+    //var count = req.cookies.count;
+    var count = 0;
+    if(req.signedCookies.count){
+       count = parseInt(req.signedCookies.count);
     }else{
-        count = 0;
+       count = 0;
     }
-    res.cookie('count', count);
+    count = count +1 ;
+    res.cookie('count', count, {singed:true});
     res.send('count : ' + count);
 })
 
