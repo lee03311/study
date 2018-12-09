@@ -48,6 +48,16 @@ app.get('/list', function(req,res){
     });
 });
 
+app.get('/list/category', function(req,res){
+    firebase.database().ref('setting').once('value', function(snapshot) {
+        var rows = [];
+        snapshot.forEach(function(childSnapshot) {
+            var data = childSnapshot.val();
+            rows.push(data)
+        });
+        res.send({result:'success', rows:rows});
+    });
+});
 app.get('/view', function(req, res){
     var id = req.query.id;
 
@@ -84,8 +94,26 @@ app.post('/delete', function(req, res){
     res.redirect('/');
 });
 
+app.get('/setting', function(req, res){
+    res.render('setting')
+});
+
+app.post('/setting/add', function(req, res){
+    var data = req.body;
+
+    if(!data.id){
+        data.id = firebase.database().ref().child('setting').push().key;
+    }
+ 
+    if(data.id){
+         firebase.database().ref('setting/'+data.id).set(data);
+    }
+ 
+    res.redirect('/');
+});
+
 app.listen(3003, function(){
-    console.log('Connected 3000 port!');
+    console.log('Connected 3003 port!');
 });
 
 
