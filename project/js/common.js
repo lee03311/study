@@ -119,15 +119,15 @@ function getCategoryList(){
             if(data.result == 'success'){
                 var menu = $("#menu");
                 var length = data.rows.length;
+                console.log(data)
                 for(var i=0; i<length ;i++){
+                    console.log(data.rows[i]);
                     var data = data.rows[i];
 
 
                     // li
                     //     a(href='/setting')
                     //         span(class='glyphicon glyphicon-option-horizontal')
-
-
 
                     $("<li/>").append(
                         $("<a/>").attr('href','#').append(

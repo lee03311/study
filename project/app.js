@@ -58,6 +58,7 @@ app.get('/list/category', function(req,res){
         res.send({result:'success', rows:rows});
     });
 });
+
 app.get('/view', function(req, res){
     var id = req.query.id;
 
