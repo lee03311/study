@@ -60,7 +60,7 @@ li.list:hover, li.complete:hover{
 .complete .circle{
     width: 50px;
     height: 50px;
-    background-color: rgb(255, 101, 58);
+    /* background-color: rgb(255, 101, 58); */
     border-radius: 50%;
     display: inline-block;
     vertical-align: middle;
@@ -91,7 +91,7 @@ li.list:hover, li.complete:hover{
 
 .textBox{
     word-break: break-all;
-    overflow: scroll;
+    overflow-y: auto;
     height: 40%;
 }
 
@@ -154,9 +154,16 @@ li.list:hover, li.complete:hover{
     z-index: 2;
 }
 
-
 .categoryArea{
     border: 1px solid gray;
     width: 13px;
     height: 13px;
+}
+
+#menu .active{
+    background-color: white;
+}
+
+#menu .inactive{
+    background-color: #303641;
 }
