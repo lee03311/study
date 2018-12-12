@@ -13,7 +13,7 @@ html
         script.
             $(function(){
                 getDays();
-                getCategoryList();
+                drawCateogry();
                 $('.updatebtn').hide();
 
                 $( "#datepicker" ).datepicker({
@@ -21,7 +21,27 @@ html
                     selectOtherMonths: true, 
                     dateFormat:'yy/mm/dd'
                 });
+                
+                //완료체크박스 숨기기
+                $('#todo_compelete').hide();
 
+                //라디오박스 변경시 이벤트
+                $('input[name="writeRadio"]').change(function(){
+                    if($(this).attr('id') == 'todolist'){
+                        if(!$('#todo_compelete').is(':visible')){
+                            $('#todo_compelete').show();
+                        }
+                        //$('#todo_compelete').hide();
+                        $('#cateogry').hide();
+                        $('#cateogry').val('');
+                    }else{
+                        if($('#todo_compelete').is(':visible')){
+                            $('#todo_compelete').hide();
+                        }
+                        $("#cateogry option:eq(0)").prop("selected", true);
+                        $('#cateogry').show();
+                    }
+                });
             });
 
             function reportAdd(){
@@ -41,7 +61,6 @@ html
                     li
                         a(href='/setting')
                             span(class='glyphicon glyphicon-option-horizontal')
-
                     
         //- h1 별이달이 일지
         div(class='btnArea')
@@ -74,11 +93,16 @@ html
                     div(class='modal-body')
                         form(method="post" id='reportForm' action='/add')
                             input(type='hidden' id='id' name='id')
+                            
+                            div(class='form-group')
+                                label(for='cateogry')
+                                select(class='form-control' id='cateogry' name='category')
+
                             div(class='input-group')
                                 input(type='text' class='form-control' id='datepicker' name='date' placeholder='날짜선택' aria-describedby='basic-addon2' autocomplete="off")
                                 span(class='input-group-addon ' id='basic-addon2')
                                     span(class='glyphicon glyphicon-calendar' aria-hidden='true')
-                                    
+
                             div(class='form-group')
                                 input(type='text' class='form-control' id='title' name='title' placeholder='제목' autocomplete="off")
 
@@ -90,7 +114,7 @@ html
                                     input(class='form-check-input' type='radio' name='writeRadio' id='todolist' value='todolist')
                                     |    todolist
                                 label(class='form-check-label')
-                                    input(class='form-check-input' type='radio' name='writeRadio' id='daily' value='daily')
+                                    input(class='form-check-input' type='radio' name='writeRadio' id='daily' value='daily' checked='true')
                                     |    daily
 
                             div(class='form-check' id="todo_compelete")

@@ -75,7 +75,7 @@ app.get('/view', function(req, res){
 
 app.post('/add', function(req, res){
    var data = req.body;
-
+    console.log(data);
    if(!data.id){
        data.id = firebase.database().ref().child('data').push().key;
    }
@@ -89,14 +89,22 @@ app.post('/add', function(req, res){
 
 app.post('/delete', function(req, res){
     var data = req.body;
-    console.log(data);
  
     firebase.database().ref('data/' + data.id).remove();
     res.redirect('/');
 });
 
-app.get('/setting', function(req, res){
-    res.render('setting')
+app.get(['/setting','/setting/:id'], function(req, res){
+    if(req.params.id){
+        var categoryId = req.params.id;
+        firebase.database().ref('setting/'+categoryId).once('value', function(snapshot) {
+            var data = snapshot.val();
+            console.log(data)
+            res.render('setting', {data:data});
+        });
+    }else{
+        res.render('setting');
+    }
 });
 
 app.post('/setting/add', function(req, res){
